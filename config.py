@@ -120,19 +120,22 @@ SONG_DOWNLOAD_DURATION_LIMIT = int(
 )
 
 
-if UPSTREAM_REPO:
-    if not re.match("(?:http|https)://", UPSTREAM_REPO):
-        print(
-            "[ERROR] - Your UPSTREAM_REPO url is wrong. Please ensure that it starts with https://"
-        )
-        sys.exit()
+if UPSTREAM_REPO and not re.match("(?:http|https)://", UPSTREAM_REPO):
+    print(
+        "[ERROR] - Your UPSTREAM_REPO url is wrong. Please ensure that it starts with https://"
+    )
+    sys.exit()
 
-if PING_IMG_URL:
-    if PING_IMG_URL != "assets/Ping.jpeg":
-        if not re.match("(?:http|https)://", PING_IMG_URL):
-            PING_IMG_URL = "https://telegra.ph/file/56d1760224589ee370186.jpg"
+if (
+    PING_IMG_URL
+    and PING_IMG_URL != "assets/Ping.jpeg"
+    and not re.match("(?:http|https)://", PING_IMG_URL)
+):
+    PING_IMG_URL = "https://telegra.ph/file/56d1760224589ee370186.jpg"
 
-if START_IMG_URL:
-    if START_IMG_URL != "assets/Ping.jpeg":
-        if not re.match("(?:http|https)://", START_IMG_URL):
-            START_IMG_URL = "https://te.legra.ph/file/56d1760224589ee370186.jpg"
+if (
+    START_IMG_URL
+    and START_IMG_URL != "assets/Ping.jpeg"
+    and not re.match("(?:http|https)://", START_IMG_URL)
+):
+    START_IMG_URL = "https://te.legra.ph/file/56d1760224589ee370186.jpg"

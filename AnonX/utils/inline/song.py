@@ -2,7 +2,7 @@ from pyrogram.types import InlineKeyboardButton
 import config
 
 def song_markup(_, vidid):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text=_["SG_B_2"],
@@ -15,11 +15,11 @@ def song_markup(_, vidid):
         ],
         [
             InlineKeyboardButton(
-                text="🥀 sᴜᴩᴩᴏʀᴛ 🥀", url=f"{config.SUPPORT_GROUP}",
+                text="🥀 sᴜᴩᴩᴏʀᴛ 🥀",
+                url=f"{config.SUPPORT_GROUP}",
             ),
             InlineKeyboardButton(
                 text=_["CLOSE_BUTTON"], callback_data="close"
             ),
         ],
     ]
-    return buttons

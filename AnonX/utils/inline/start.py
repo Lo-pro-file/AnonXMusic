@@ -6,7 +6,7 @@ import config
 
 
 def start_pannel(_, BOT_USERNAME, OWNER: Union[bool, int] = None):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ",
@@ -22,12 +22,11 @@ def start_pannel(_, BOT_USERNAME, OWNER: Union[bool, int] = None):
                 text="sᴇᴛᴛɪɴɢs", callback_data="settings_helper"
             ),
         ],
-     ]
-    return buttons
+    ]
 
 
 def private_panel(_, BOT_USERNAME, OWNER: Union[bool, int] = None):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ",
@@ -40,17 +39,8 @@ def private_panel(_, BOT_USERNAME, OWNER: Union[bool, int] = None):
             )
         ],
         [
-            InlineKeyboardButton(
-                text="❣ sᴜᴩᴩᴏʀᴛ ❣", url=config.SUPPORT_GROUP
-            ),
-            InlineKeyboardButton(
-                text="🥀 ᴍᴀɪɴᴛᴀɪɴᴇʀ 🥀", user_id=OWNER
-            )
+            InlineKeyboardButton(text="❣ sᴜᴩᴩᴏʀᴛ ❣", url=config.SUPPORT_GROUP),
+            InlineKeyboardButton(text="🥀 ᴍᴀɪɴᴛᴀɪɴᴇʀ 🥀", user_id=OWNER),
         ],
-        [
-            InlineKeyboardButton(
-                text="✨ sᴏᴜʀᴄᴇ ✨", url=config.UPSTREAM_REPO
-            )
-        ],
-     ]
-    return buttons
+        [InlineKeyboardButton(text="✨ sᴏᴜʀᴄᴇ ✨", url=config.UPSTREAM_REPO)],
+    ]

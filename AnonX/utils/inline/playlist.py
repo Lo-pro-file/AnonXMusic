@@ -2,7 +2,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
 def botplaylist_markup(_):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="ᴩᴇʀsᴏɴᴀʟ",
@@ -13,16 +13,13 @@ def botplaylist_markup(_):
             ),
         ],
         [
-            InlineKeyboardButton(
-                text="✯ ᴄʟᴏsᴇ ✯", callback_data="close"
-            ),
+            InlineKeyboardButton(text="✯ ᴄʟᴏsᴇ ✯", callback_data="close"),
         ],
     ]
-    return buttons
 
 
 def top_play_markup(_):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="ᴛᴏᴘ 10 ᴘʟᴀʏʟɪsᴛs", callback_data="SERVERTOP"
@@ -39,22 +36,17 @@ def top_play_markup(_):
             ),
             InlineKeyboardButton(
                 text="ɢʀᴏᴜᴘ's", callback_data="SERVERTOP chat"
-            )
+            ),
         ],
         [
-            InlineKeyboardButton(
-                text="ʙᴀᴄᴋ", callback_data="get_playmarkup"
-            ),
-            InlineKeyboardButton(
-                text="ᴄʟᴏsᴇ", callback_data="close"
-            ),
+            InlineKeyboardButton(text="ʙᴀᴄᴋ", callback_data="get_playmarkup"),
+            InlineKeyboardButton(text="ᴄʟᴏsᴇ", callback_data="close"),
         ],
     ]
-    return buttons
 
 
 def get_playlist_markup(_):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="ᴀᴜᴅɪᴏ", callback_data="play_playlist a"
@@ -64,19 +56,14 @@ def get_playlist_markup(_):
             ),
         ],
         [
-            InlineKeyboardButton(
-                text="ʙᴀᴄᴋ", callback_data="home_play"
-            ),
-            InlineKeyboardButton(
-                text="ᴄʟᴏsᴇ", callback_data="close"
-            ),
+            InlineKeyboardButton(text="ʙᴀᴄᴋ", callback_data="home_play"),
+            InlineKeyboardButton(text="ᴄʟᴏsᴇ", callback_data="close"),
         ],
     ]
-    return buttons
 
 
 def top_play_markup(_):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="ᴛᴏᴘ 10 ᴘʟᴀʏʟɪsᴛs", callback_data="SERVERTOP"
@@ -93,37 +80,29 @@ def top_play_markup(_):
             ),
             InlineKeyboardButton(
                 text="ɢʀᴏᴜᴘ's", callback_data="SERVERTOP Group"
-            )
+            ),
         ],
         [
-            InlineKeyboardButton(
-                text="ʙᴀᴄᴋ", callback_data="get_playmarkup"
-            ),
-            InlineKeyboardButton(
-                text="ᴄʟᴏsᴇ", callback_data="close"
-            ),
+            InlineKeyboardButton(text="ʙᴀᴄᴋ", callback_data="get_playmarkup"),
+            InlineKeyboardButton(text="ᴄʟᴏsᴇ", callback_data="close"),
         ],
     ]
-    return buttons
 
 
 def failed_top_markup(_):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="ʙᴀᴄᴋ",
                 callback_data="get_top_playlists",
             ),
-            InlineKeyboardButton(
-                text="ᴄʟᴏsᴇ", callback_data="close"
-            ),
+            InlineKeyboardButton(text="ᴄʟᴏsᴇ", callback_data="close"),
         ],
     ]
-    return buttons
 
 
 def warning_markup(_):
-    upl = InlineKeyboardMarkup(
+    return InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton(
@@ -143,11 +122,10 @@ def warning_markup(_):
             ],
         ]
     )
-    return upl
 
 
 def close_markup(_):
-    upl = InlineKeyboardMarkup(
+    return InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton(
@@ -157,4 +135,3 @@ def close_markup(_):
             ]
         ]
     )
-    return upl

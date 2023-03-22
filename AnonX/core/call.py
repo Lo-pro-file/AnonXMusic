@@ -137,16 +137,15 @@ class Call(PyTgCalls):
                 audio_parameters=audio_stream_quality,
                 video_parameters=video_stream_quality,
             )
+        elif image and config.PRIVATE_BOT_MODE == str(True):
+            stream = AudioImagePiped(
+                link,
+                image,
+                audio_parameters=audio_stream_quality,
+                video_parameters=video_stream_quality,
+            )
         else:
-            if image and config.PRIVATE_BOT_MODE == str(True):
-                stream = AudioImagePiped(
-                    link,
-                    image,
-                    audio_parameters=audio_stream_quality,
-                    video_parameters=video_stream_quality,
-                )
-            else:
-                stream = AudioPiped(link, audio_parameters=audio_stream_quality)
+            stream = AudioPiped(link, audio_parameters=audio_stream_quality)
         await assistant.change_stream(
             chat_id,
             stream,
@@ -204,7 +203,7 @@ class Call(PyTgCalls):
                 get = await app.get_chat_member(chat_id, userbot.id)
             except ChatAdminRequired:
                 raise AssistantErr(_["call_1"])
-            if get.status == "banned" or get.status == "kicked":
+            if get.status in ["banned", "kicked"]:
                 try:
                     await app.unban_chat_member(chat_id, userbot.id)
                 except:
@@ -273,24 +272,23 @@ class Call(PyTgCalls):
                 audio_parameters=audio_stream_quality,
                 video_parameters=video_stream_quality,
             )
+        elif image and config.PRIVATE_BOT_MODE == str(True):
+            stream = AudioImagePiped(
+                link,
+                image,
+                audio_parameters=audio_stream_quality,
+                video_parameters=video_stream_quality,
+            )
         else:
-            if image and config.PRIVATE_BOT_MODE == str(True):
-                stream = AudioImagePiped(
+            stream = (
+                AudioVideoPiped(
                     link,
-                    image,
                     audio_parameters=audio_stream_quality,
                     video_parameters=video_stream_quality,
                 )
-            else:
-                stream = (
-                    AudioVideoPiped(
-                        link,
-                        audio_parameters=audio_stream_quality,
-                        video_parameters=video_stream_quality,
-                    )
-                    if video
-                    else AudioPiped(link, audio_parameters=audio_stream_quality)
-                )
+                if video
+                else AudioPiped(link, audio_parameters=audio_stream_quality)
+            )
         try:
             await assistant.join_group_call(
                 chat_id,
@@ -342,9 +340,8 @@ class Call(PyTgCalls):
             else:
                 loop = loop - 1
                 await set_loop(chat_id, loop)
-            if popped:
-                if config.AUTO_DOWNLOADS_CLEAR == str(True):
-                    await auto_clean(popped)
+            if popped and config.AUTO_DOWNLOADS_CLEAR == str(True):
+                await auto_clean(popped)
             if not check:
                 await _clear_(chat_id)
                 return await client.leave_group_call(chat_id)
@@ -367,7 +364,7 @@ class Call(PyTgCalls):
             videoid = check[0]["vidid"]
             user_id = check[0]["user_id"]
             check[0]["played"] = 0
-            video = True if str(streamtype) == "video" else False
+            video = str(streamtype) == "video"
             if "live_" in queued:
                 n, link = await YouTube.video(videoid, True)
                 if n == 0:
@@ -429,9 +426,7 @@ class Call(PyTgCalls):
                         videoid,
                         mystic,
                         videoid=True,
-                        video=True
-                        if str(streamtype) == "video"
-                        else False,
+                        video=str(streamtype) == "video",
                     )
                 except:
                     return await mystic.edit_text(
@@ -512,9 +507,7 @@ class Call(PyTgCalls):
                 db[chat_id][0]["mystic"] = run
                 db[chat_id][0]["markup"] = "tg"
             else:
-                if videoid == "telegram":
-                    image = None
-                elif videoid == "soundcloud":
+                if videoid in ["telegram", "soundcloud"]:
                     image = None
                 else:
                     try:
@@ -527,19 +520,18 @@ class Call(PyTgCalls):
                         audio_parameters=audio_stream_quality,
                         video_parameters=video_stream_quality,
                     )
+                elif image and config.PRIVATE_BOT_MODE == str(True):
+                    stream = AudioImagePiped(
+                        queued,
+                        image,
+                        audio_parameters=audio_stream_quality,
+                        video_parameters=video_stream_quality,
+                    )
                 else:
-                    if image and config.PRIVATE_BOT_MODE == str(True):
-                        stream = AudioImagePiped(
-                            queued,
-                            image,
-                            audio_parameters=audio_stream_quality,
-                            video_parameters=video_stream_quality,
-                        )
-                    else:
-                        stream = AudioPiped(
-                            queued,
-                            audio_parameters=audio_stream_quality,
-                        )
+                    stream = AudioPiped(
+                        queued,
+                        audio_parameters=audio_stream_quality,
+                    )
                 try:
                     await client.change_stream(chat_id, stream)
                 except Exception:

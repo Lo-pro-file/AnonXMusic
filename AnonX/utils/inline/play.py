@@ -34,7 +34,7 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
     else:
         bar = "—————————◉"
 
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text=f"{played} {bar} {dur}",
@@ -59,13 +59,8 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
                 text="▢", callback_data=f"ADMIN Stop|{chat_id}"
             ),
         ],
-        [
-            InlineKeyboardButton(
-                text="✯ ᴄʟᴏsᴇ ✯", callback_data=f"close"
-            )
-        ],
+        [InlineKeyboardButton(text="✯ ᴄʟᴏsᴇ ✯", callback_data="close")],
     ]
-    return buttons
 
 
 def telegram_markup_timer(_, chat_id, played, dur):
@@ -94,7 +89,7 @@ def telegram_markup_timer(_, chat_id, played, dur):
     else:
         bar = "—————————◉"
 
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text=f"{played} {bar} {dur}",
@@ -116,17 +111,12 @@ def telegram_markup_timer(_, chat_id, played, dur):
                 text="▢", callback_data=f"ADMIN Stop|{chat_id}"
             ),
         ],
-        [
-            InlineKeyboardButton(
-                text="✯ ᴄʟᴏsᴇ ✯", callback_data=f"close"
-            )
-        ],
+        [InlineKeyboardButton(text="✯ ᴄʟᴏsᴇ ✯", callback_data="close")],
     ]
-    return buttons
 
 
 def stream_markup(_, videoid, chat_id):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="▷",
@@ -145,17 +135,12 @@ def stream_markup(_, videoid, chat_id):
                 text="▢", callback_data=f"ADMIN Stop|{chat_id}"
             ),
         ],
-        [
-            InlineKeyboardButton(
-                text="✯ ᴄʟᴏsᴇ ✯", callback_data=f"close"
-            )
-        ],
+        [InlineKeyboardButton(text="✯ ᴄʟᴏsᴇ ✯", callback_data="close")],
     ]
-    return buttons
 
 
 def telegram_markup(_, chat_id):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="▷",
@@ -171,20 +156,15 @@ def telegram_markup(_, chat_id):
                 text="▢", callback_data=f"ADMIN Stop|{chat_id}"
             ),
         ],
-        [
-            InlineKeyboardButton(
-                text="✯ ᴄʟᴏsᴇ ✯", callback_data=f"close"
-            )
-        ],
+        [InlineKeyboardButton(text="✯ ᴄʟᴏsᴇ ✯", callback_data="close")],
     ]
-    return buttons
 
 
 ## Search Query Inline
 
 
 def track_markup(_, videoid, user_id, channel, fplay):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text=_["P_B_1"],
@@ -202,13 +182,12 @@ def track_markup(_, videoid, user_id, channel, fplay):
             )
         ],
     ]
-    return buttons
 
 ## Live Stream Markup
 
 
 def livestream_markup(_, videoid, user_id, mode, channel, fplay):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text=_["P_B_3"],
@@ -224,14 +203,13 @@ def livestream_markup(_, videoid, user_id, mode, channel, fplay):
                 text=_["CLOSEMENU_BUTTON"],
                 callback_data=f"forceclose {videoid}|{user_id}",
             ),
-        ]
+        ],
     ]
-    return buttons
 
 ## wtf
 
 def playlist_markup(_, videoid, user_id, ptype, channel, fplay):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text=_["P_B_1"],
@@ -253,7 +231,6 @@ def playlist_markup(_, videoid, user_id, ptype, channel, fplay):
             ),
         ],
     ]
-    return buttons
 
 
 ## Slider Query Markup
@@ -263,7 +240,7 @@ def slider_markup(
     _, videoid, user_id, query, query_type, channel, fplay
 ):
     query = f"{query[:20]}"
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text=_["P_B_1"],
@@ -289,7 +266,6 @@ def slider_markup(
             ),
         ],
     ]
-    return buttons
 
 ## Extra Shit
 
@@ -307,7 +283,7 @@ close_keyboard = InlineKeyboardMarkup(
 ## Queue Markup
 
 def queue_markup(_, videoid, chat_id):
-    buttons = [
+    return [
         [
             InlineKeyboardButton(
                 text="▷",
@@ -326,10 +302,5 @@ def queue_markup(_, videoid, chat_id):
                 text="▢", callback_data=f"ADMIN Stop|{chat_id}"
             ),
         ],
-        [
-            InlineKeyboardButton(
-                text="✯ ᴄʟᴏsᴇ ✯", callback_data=f"close"
-            )
-        ],
+        [InlineKeyboardButton(text="✯ ᴄʟᴏsᴇ ✯", callback_data="close")],
     ]
-    return buttons

