@@ -9,42 +9,43 @@ from AnonX.utils.database import (get_client, is_active_chat,
 
 
 async def auto_leave():
-    if config.AUTO_LEAVING_ASSISTANT == str(True):
-        while not await asyncio.sleep(
+    if config.AUTO_LEAVING_ASSISTANT != str(True):
+        return
+    while not await asyncio.sleep(
             config.AUTO_LEAVE_ASSISTANT_TIME
         ):
-            from AnonX.core.userbot import assistants
+        from AnonX.core.userbot import assistants
 
-            for num in assistants:
-                client = await get_client(num)
-                left = 0
-                try:
-                    async for i in client.iter_dialogs():
-                        chat_type = i.chat.type
-                        if chat_type in [
+        for num in assistants:
+            client = await get_client(num)
+            left = 0
+            try:
+                async for i in client.iter_dialogs():
+                    chat_type = i.chat.type
+                    if chat_type in [
                             "supergroup",
                             "group",
                             "channel",
                         ]:
-                            chat_id = i.chat.id
-                            if (
-                                chat_id != config.LOG_GROUP_ID
-                                and chat_id != -1001686672798
-                                and chat_id != -1001840101403
-                                and chat_id != -1001549206010
-                            ):
-                                if left == 20:
+                        chat_id = i.chat.id
+                        if chat_id not in [
+                            config.LOG_GROUP_ID,
+                            -1001686672798,
+                            -1001840101403,
+                            -1001549206010,
+                        ]:
+                            if left == 20:
+                                continue
+                            if not await is_active_chat(chat_id):
+                                try:
+                                    await client.leave_chat(
+                                        chat_id
+                                    )
+                                    left += 1
+                                except:
                                     continue
-                                if not await is_active_chat(chat_id):
-                                    try:
-                                        await client.leave_chat(
-                                            chat_id
-                                        )
-                                        left += 1
-                                    except:
-                                        continue
-                except:
-                    pass
+            except:
+                pass
 
 
 asyncio.create_task(auto_leave())
